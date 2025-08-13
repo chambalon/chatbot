@@ -1,5 +1,6 @@
 import pickle
 import json
+import nltk
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 import numpy
@@ -14,18 +15,20 @@ with open('intents.json') as file:
   data = json.load(file)
 
 
-lemmatizer = word_tokenize()
+lemmatizer = WordNetLemmatizer()
 def predict_intent(sentence):
   sentence = " ".join([lemmatizer.lemmatize(token.lower()) for token in word_tokenize(sentence)])
   x = vectorizer.transform([sentence]).toarray()
-  prediction = model.predict(x)[0]
-  return prediction
+  predicted_intent = model.predict(x)[0]
+  return predicted_intent
 
 
-def response(intent):
+def get_response(intent):
   for i in data['intents']:
     if i['tag'] == intent:
       response = random.choice(i['responses'])
   return response
 
+intent = predict_intent('Hi')
+print(get_response(intent))
 

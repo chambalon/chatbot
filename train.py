@@ -9,6 +9,7 @@ import pickle
 
 
 nltk.download('punkt')
+nltk.download('punkt_tab')
 nltk.download('wordnet')
 lemmatizer = WordNetLemmatizer()
 
@@ -22,12 +23,11 @@ classes = []
 for intent in data['intents']:
   for pattern in intent['patterns']:
     tokens = word_tokenize(pattern)
-    lemmas = [lemmatizer.lemmatize(token.lower()) for token in tokens]
-    collection.append(" ".join(lemmas))
+    tokens = [lemmatizer.lemmatize(w.lower()) for w in tokens]
+    collection.append(" ".join(tokens))
     labels.append(intent['tag'])
     if intent['tag'] not in classes:
       classes.append(intent['tag'])
-
 
 
 vectorizer = CountVectorizer()
@@ -35,7 +35,7 @@ x = vectorizer.fit_transform(collection).toarray()
 y = np.array(labels)
 
 model = MultinomialNB()
-model.fit(x,y)
+model.fit(x, y)
 
 with open('model.pkl', 'wb') as f:
   pickle.dump(model, f)
