@@ -29,6 +29,7 @@ def get_response(intent):
       response = random.choice(i['responses'])
   return response
 
+'''
 intent = predict_intent('Hi')
 print(get_response(intent))
-
+'''

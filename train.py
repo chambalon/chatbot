@@ -16,24 +16,26 @@ lemmatizer = WordNetLemmatizer()
 with open('intents.json') as file:
   data = json.load(file)
 
-collection = []
+corpus = []
 labels = []
 classes = []
 
+# Preprocessing
 for intent in data['intents']:
   for pattern in intent['patterns']:
     tokens = word_tokenize(pattern)
-    tokens = [lemmatizer.lemmatize(w.lower()) for w in tokens]
-    collection.append(" ".join(tokens))
+    lemmas = [lemmatizer.lemmatize(w.lower()) for w in tokens]
+    corpus.append(" ".join(lemmas))
     labels.append(intent['tag'])
     if intent['tag'] not in classes:
       classes.append(intent['tag'])
 
-
+# Text classification
 vectorizer = CountVectorizer()
-x = vectorizer.fit_transform(collection).toarray()
+x = vectorizer.fit_transform(corpus).toarray()
 y = np.array(labels)
 
+# Model training
 model = MultinomialNB()
 model.fit(x, y)
 

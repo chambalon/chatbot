@@ -3,12 +3,12 @@
     {
       "tag": "greeting",
       "patterns": ["Hi","Hello","Hey"],
-      "responses": ["Hello!","Hi!","Hey!"]
+      "responses": ["Hello!","Hi,there!","Hey!"]
     },
     {
       "tag": "bye",
       "patterns": ["Bye!","Goodb!","See You"],
-      "responses": ["Bye!","Taake Care!","Goodbye!"]
+      "responses": ["Bye!","Take Care!","Goodbye!"]
     }
   ]
 }

@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from chatbot import predict_intent, get_response
 
 app = Flask(__name__)
-@app.route('/chat', methods=['POST'])
+@app.route('/chatbot', methods=['POST'])
 
 def chat():
   user_input = request.json["message"]
